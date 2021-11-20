@@ -1,24 +1,19 @@
-> 转自：小蘑菇
-> 
-> https://segmentfault.com/a/1190000039220666
+# 各种方法
 
-##### 1、输入一个值，返回其数据类型 **
+## 1、**数据类型**
 
-```
+``` javascript
 function type(para) {
     return Object.prototype.toString.call(para)
 }
-
-
 ```
 
-##### 2、数组去重
+## 2、数组去重
 
-```
+``` javascript
 function unique1(arr) {
     return [...new Set(arr)]
 }
-
 function unique2(arr) {
     var obj = {};
     return arr.filter(ele => {
@@ -28,7 +23,6 @@ function unique2(arr) {
         }
     })
 }
-
 function unique3(arr) {
     var result = [];
     arr.forEach(ele => {
@@ -42,9 +36,9 @@ function unique3(arr) {
 
 ```
 
-##### 3、字符串去重
+## 3、字符串去重
 
-```
+``` javascript
 String.prototype.unique = function () {
     var obj = {},
         str = '',
@@ -57,18 +51,16 @@ String.prototype.unique = function () {
     }
     return str;
 }
-
-###### //去除连续的字符串 
+//去除连续的字符串 
 function uniq(str) {
     return str.replace(/(\w)\1+/g, '$1')
 }
 
-
 ```
 
-##### 4、深拷贝 浅拷贝
+## 4、深拷贝 浅拷贝
 
-```
+``` javascript
 //深克隆（深克隆不考虑函数）
 function deepClone(obj, result) {
     var result = result || {};
@@ -77,7 +69,7 @@ function deepClone(obj, result) {
             if (typeof obj[prop] == 'object' && obj[prop] !== null) {
                 // 引用值(obj/array)且不为null
                 if (Object.prototype.toString.call(obj[prop]) == '[object Object]') {
-                    // 对象
+                    // 对象
                     result[prop] = {};
                 } else {
                     // 数组
@@ -116,12 +108,34 @@ function deepClone(target) {
 // 无法复制函数
 var o1 = jsON.parse(jsON.stringify(obj1));
 
+function deepClone(obj, cache = new WeakMap()) {
+  if (typeof obj !== 'object') return obj // 普通类型，直接返回
+  if (obj === null) return obj
+  if (cache.get(obj)) return cache.get(obj) // 防止循环引用，程序进入死循环
+  if (obj instanceof Date) return new Date(obj)
+  if (obj instanceof RegExp) return new RegExp(obj)
+  
+  // 找到所属原型上的constructor，所属原型上的constructor指向当前对象的构造函数
+  let cloneObj = new obj.constructor()
+  cache.set(obj, cloneObj) // 缓存拷贝的对象，用于处理循环引用的情况
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      cloneObj[key] = deepClone(obj[key], cache) // 递归拷贝
+    }
+  }
+  return cloneObj
+}
 
+// 测试
+const obj = { name: 'Jack', address: { x: 100, y: 200 } }
+obj.a = obj // 循环引用
+const newObj = deepClone(obj)
+console.log(newObj.address === obj.address) // false
 ```
 
-##### 5、reverse 底层原理和扩展
+## 5、reverse 底层原理和扩展
 
-```
+``` javascript
 // 改变原数组
 Array.prototype.myReverse = function () {
     var len = this.length;
@@ -133,12 +147,11 @@ Array.prototype.myReverse = function () {
     return this;
 }
 
-
 ```
 
-##### 6、圣杯模式的继承
+## 6、圣杯模式的继承
 
-```
+``` javascript
 function inherit(Target, Origin) {
     function F() {};
     F.prototype = Origin.prototype;
@@ -148,12 +161,11 @@ function inherit(Target, Origin) {
     Target.prop.uber = Origin.prototype;
 }
 
-
 ```
 
-##### 7、找出字符串中第一次只出现一次的字母
+## 7、找出字符串中第一次只出现一次的字母
 
-```
+``` javascript
 String.prototype.firstAppear = function () {
     var obj = {},
         len = this.length;
@@ -171,12 +183,11 @@ String.prototype.firstAppear = function () {
     }
 }
 
-
 ```
 
-##### 8、找元素的第 n 级父元素
+## 8、找元素的第 n 级父元素
 
-```
+``` javascript
 function parents(ele, n) {
     while (ele && n) {
         ele = ele.parentElement ? ele.parentElement : ele.parentNode;
@@ -185,12 +196,11 @@ function parents(ele, n) {
     return ele;
 }
 
-
 ```
 
-##### 9、 返回元素的第 n 个兄弟节点
+## 9、 返回元素的第 n 个兄弟节点
 
-```
+``` javascript
 function retSibling(e, n) {
     while (e && n) {
         if (n > 0) {
@@ -215,9 +225,9 @@ function retSibling(e, n) {
 
 ```
 
-##### 10、封装 mychildren，解决浏览器的兼容问题
+## 10、封装 mychildren，解决浏览器的兼容问题
 
-```
+``` javascript
 function myChildren(e) {
     var children = e.childNodes,
         arr = [],
@@ -229,13 +239,11 @@ function myChildren(e) {
     }
     return arr;
 }
-
-
 ```
 
-##### 11、判断元素有没有子元素
+## 11、判断元素有没有子元素
 
-```
+``` javascript
 function hasChildren(e) {
     var children = e.childNodes,
         len = children.length;
@@ -247,12 +255,11 @@ function hasChildren(e) {
     return false;
 }
 
-
 ```
 
-##### 12、我一个元素插入到另一个元素的后面
+## 12、我一个元素插入到另一个元素的后面
 
-```
+``` javascript
 Element.prototype.insertAfter = function (target, elen) {
     var nextElen = elen.nextElenmentSibling;
     if (nextElen == null) {
@@ -265,9 +272,9 @@ Element.prototype.insertAfter = function (target, elen) {
 
 ```
 
-##### 13、返回当前的时间（年月日时分秒）
+## 13、返回当前的时间（年月日时分秒）
 
-```
+``` javascript
 function getDateTime() {
     var date = new Date(),
         year = date.getFullYear(),
@@ -283,19 +290,18 @@ function getDateTime() {
         second = checkTime(second);
      function checkTime(i) {
         if (i < 10) {
-                i = "0" + i;
+          i = "0" + i;
        }
       return i;
     }
     return "" + year + "年" + month + "月" + day + "日" + hour + "时" + minute + "分" + second + "秒"
 }
 
-
 ```
 
-##### 14、获得滚动条的滚动距离
+## 14、获得滚动条的滚动距离
 
-```
+``` javascript
 function getScrollOffset() {
     if (window.pageXOffset) {
         return {
@@ -313,9 +319,9 @@ function getScrollOffset() {
 
 ```
 
-##### 15、获得视口的尺寸
+## 15、获得视口的尺寸
 
-```
+``` javascript
 function getViewportOffset() {
     if (window.innerWidth) {
         return {
@@ -343,9 +349,9 @@ function getViewportOffset() {
 
 ```
 
-##### 16、获取任一元素的任意属性
+## 16、获取任一元素的任意属性
 
-```
+``` javascript
 function getStyle(elem, prop) {
     return window.getComputedStyle ? window.getComputedStyle(elem, null)[prop] : elem.currentStyle[prop]
 }
@@ -353,9 +359,9 @@ function getStyle(elem, prop) {
 
 ```
 
-##### 17、绑定事件的兼容代码
+## 17、绑定事件的兼容代码
 
-```
+``` javascript
 function addEvent(elem, type, handle) {
     if (elem.addEventListener) { //非ie和非ie9
         elem.addEventListener(type, handle, false);
@@ -371,9 +377,9 @@ function addEvent(elem, type, handle) {
 
 ```
 
-##### 18、解绑事件
+## 18、解绑事件
 
-```
+``` javascript
 function removeEvent(elem, type, handle) {
     if (elem.removeEventListener) { //非ie和非ie9
         elem.removeEventListener(type, handle, false);
@@ -387,9 +393,9 @@ function removeEvent(elem, type, handle) {
 
 ```
 
-##### 19、取消冒泡的兼容代码
+## 19、取消冒泡的兼容代码
 
-```
+``` javascript
 function stopBubble(e) {
     if (e && e.stopPropagation) {
         e.stopPropagation();
@@ -401,9 +407,9 @@ function stopBubble(e) {
 
 ```
 
-##### 20、检验字符串是否是回文
+## 20、检验字符串是否是回文
 
-```
+``` javascript
 function isPalina(str) {
     if (Object.prototype.toString.call(str) !== '[object String]') {
         return false;
@@ -417,12 +423,11 @@ function isPalina(str) {
     return true;
 }
 
-
 ```
 
-##### 21、检验字符串是否是回文
+## 21、检验字符串是否是回文
 
-```
+``` javascript
 function isPalindrome(str) {
     str = str.replace(/\W/g, '').toLowerCase();
     console.log(str)
@@ -432,9 +437,9 @@ function isPalindrome(str) {
 
 ```
 
-##### 22、兼容 getElementsByClassName 方法
+## 22、兼容 getElementsByClassName 方法
 
-```
+``` javascript
 Element.prototype.getElementsByClassName = Document.prototype.getElementsByClassName = function (_className) {
     var allDomArray = document.getElementsByTagName('*');
     var lastDomArray = [];
@@ -457,9 +462,9 @@ Element.prototype.getElementsByClassName = Document.prototype.getElementsByCla
 
 ```
 
-##### 23、运动函数
+## 23、运动函数
 
-```
+``` javascript
 function animate(obj, json, callback) {
     clearInterval(obj.timer);
     var speed,
@@ -494,9 +499,9 @@ function animate(obj, json, callback) {
 
 ```
 
-##### 24、弹性运动
+## 24、弹性运动
 
-```
+``` javascript
 function ElasticMovement(obj, target) {
     clearInterval(obj.timer);
     var iSpeed = 40,
@@ -518,9 +523,9 @@ function ElasticMovement(obj, target) {
 
 ```
 
-##### 25、封装自己的 forEach 方法
+## 25、封装自己的 forEach 方法
 
-```
+``` javascript
 Array.prototype.myForEach = function (func, obj) {
     var len = this.length;
     var _this = arguments[1] ? arguments[1] : window;
@@ -533,9 +538,9 @@ Array.prototype.myForEach = function (func, obj) {
 
 ```
 
-##### 26、封装自己的 filter 方法
+## 26、封装自己的 filter 方法
 
-```
+``` javascript
 Array.prototype.myFilter = function (func, obj) {
     var len = this.length;
     var arr = [];
@@ -549,9 +554,9 @@ Array.prototype.myFilter = function (func, obj) {
 
 ```
 
-##### 27、数组 map 方法
+## 27、数组 map 方法
 
-```
+``` javascript
 Array.prototype.myMap = function (func) {
     var arr = [];
     var len = this.length;
@@ -565,9 +570,9 @@ Array.prototype.myMap = function (func) {
 
 ```
 
-##### 28、数组 every 方法
+## 28、数组 every 方法
 
-```
+``` javascript
 Array.prototype.myEvery = function (func) {
     var flag = true;
     var len = this.length;
@@ -584,9 +589,9 @@ Array.prototype.myEvery = function (func) {
 
 ```
 
-##### 29、数组 reduce 方法
+## 29、数组 reduce 方法
 
-```
+``` javascript
 Array.prototype.myReduce = function (func, initialValue) {
     var len = this.length,
         nextValue,
@@ -609,9 +614,9 @@ Array.prototype.myReduce = function (func, initialValue) {
 
 ```
 
-##### 30、获取 url 中的参数
+## 30、获取 url 中的参数
 
-```
+``` javascript
 function getWindonHref() {
     var sHref = window.location.href;
     var args = sHref.split('?');
@@ -627,12 +632,29 @@ function getWindonHref() {
     return obj;
 }
 
+function getParams(url) {
+  const res = {}
+  if (url.includes('?')) {
+    const str = url.split('?')[1]
+    const arr = str.split('&')
+    arr.forEach(item => {
+      const key = item.split('=')[0]
+      const val = item.split('=')[1]
+      res[key] = decodeURIComponent(val) // 解码
+    })
+  }
+  return res
+}
+
+// 测试
+const user = getParams('http://www.baidu.com?user=%E9%98%BF%E9%A3%9E&age=16')
+console.log(user) // { user: '阿飞', age: '16' }
 
 ```
 
-##### 31、数组排序
+## 31、数组排序
 
-```
+``` javascript
 // 快排 [left] + min + [right]
 function quickArr(arr) {
     if (arr.length <= 1) {
@@ -684,9 +706,9 @@ function bubbleSort(arr) {
 
 ```
 
-##### 32、遍历 Dom 树
+## 32、遍历 Dom 树
 
-```
+``` javascript
 // 给定页面上的DOM元素,将访问元素本身及其所有后代(不仅仅是它的直接子元素)
 // 对于每个访问的元素，函数讲元素传递给提供的回调函数
 function traverse(element, callback) {
@@ -700,9 +722,9 @@ function traverse(element, callback) {
 
 ```
 
-##### 33、原生 js 封装 ajax
+## 33、原生 js 封装 ajax
 
-```
+``` javascript
 function ajax(method, url, callback, data, flag) {
     var xhr;
     flag = flag || true;
@@ -734,9 +756,9 @@ function ajax(method, url, callback, data, flag) {
 
 ```
 
-##### 34、异步加载 script
+## 34、异步加载 script
 
-```
+``` javascript
 function loadScript(url, callback) {
     var oscript = document.createElement('script');
     if (oscript.readyState) { // ie8及以下版本
@@ -757,9 +779,9 @@ function loadScript(url, callback) {
 
 ```
 
-##### 35、cookie 管理
+## 35、cookie 管理
 
-```
+``` javascript
 var cookie = {
     set: function (name, value, time) {
         document.cookie = name + '=' + value + '; max-age=' + time;
@@ -783,9 +805,9 @@ var cookie = {
 
 ```
 
-##### 36、实现 bind() 方法
+## 36、实现 bind() 方法
 
-```
+``` javascript
 Function.prototype.myBind = function (target) {
     var target = target || window;
     var _args1 = [].slice.call(arguments, 1);
@@ -804,9 +826,9 @@ Function.prototype.myBind = function (target) {
 
 ```
 
-##### 37、实现 call() 方法
+## 37、实现 call() 方法
 
-```
+``` javascript
 Function.prototype.myCall = function () {
     var ctx = arguments[0] || window;
     ctx.fn = this;
@@ -822,9 +844,9 @@ Function.prototype.myCall = function () {
 
 ```
 
-##### 38、实现 apply() 方法
+## 38、实现 apply() 方法
 
-```
+``` javascript
 Function.prototype.myApply = function () {
     var ctx = arguments[0] || window;
     ctx.fn = this;
@@ -841,9 +863,9 @@ Function.prototype.myApply = function () {
 
 ```
 
-##### 39、防抖
+## 39、防抖
 
-```
+``` javascript
 function debounce(handle, delay) {
     var timer = null;
     return function () {
@@ -859,9 +881,9 @@ function debounce(handle, delay) {
 
 ```
 
-##### 40、节流
+## 40、节流
 
-```
+``` javascript
 function throttle(handler, wait) {
     var lastTime = 0;
     return function (e) {
@@ -876,9 +898,9 @@ function throttle(handler, wait) {
 
 ```
 
-##### 41、requestAnimFrame 兼容性方法
+## 41、requestAnimFrame 兼容性方法
 
-```
+``` javascript
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
@@ -891,9 +913,9 @@ window.requestAnimFrame = (function () {
 
 ```
 
-##### 42、cancelAnimFrame 兼容性方法
+## 42、cancelAnimFrame 兼容性方法
 
-```
+``` javascript
 window.cancelAnimFrame = (function () {
     return window.cancelAnimationFrame ||
         window.webkitCancelAnimationFrame ||
@@ -906,9 +928,9 @@ window.cancelAnimFrame = (function () {
 
 ```
 
-##### 43、jsonp 底层方法
+## 43、jsonp 底层方法
 
-```
+``` javascript
 function jsonp(url, callback) {
     var oscript = document.createElement('script');
     if (oscript.readyState) { // ie8及以下版本
@@ -929,9 +951,9 @@ function jsonp(url, callback) {
 
 ```
 
-##### 44、获取 url 上的参数
+## 44、获取 url 上的参数
 
-```
+``` javascript
 function getUrlParam(sUrl, sKey) {
     var result = {};
     sUrl.replace(/(\w+)=(\w+)(?=[&|#])/g, function (ele, key, val) {
@@ -949,12 +971,18 @@ function getUrlParam(sUrl, sKey) {
     }
 }
 
+const getParameters = (URL) => {
+	URL = JSON.parse('{"' + decodeURI(URL.split("?")[1]).replace(/"/g, '\"').replace(/&/g, '","').replace(
+	/=/g, '":"') + '"}');
+	return JSON.stringify(URL);
+};
+
 
 ```
 
-##### 45、格式化时间
+## 45、格式化时间
 
-```
+``` javascript
 function formatDate(t, str) {
     var obj = {
         yyyy: t.getFullYear(),
@@ -981,9 +1009,9 @@ function formatDate(t, str) {
 
 ```
 
-##### 46、验证邮箱的正则表达式
+## 46、验证邮箱的正则表达式
 
-```
+``` javascript
 function isAvailableEmail(sEmail) {
     var reg = /^([\w+\.])+@\w+([.]\w+)+$/
     return reg.test(sEmail)
@@ -992,9 +1020,9 @@ function isAvailableEmail(sEmail) {
 
 ```
 
-##### 47、函数柯里化
+## 47、函数柯里化
 
-```
+``` javascript
 //是把接受多个参数的函数变换成接受一个单一参数(最初函数的第一个参数)的函数，并且返回接受余下的参数且返回结果的新函数的技术
 
 function curryIt(fn) {
@@ -1015,9 +1043,9 @@ function curryIt(fn) {
 
 ```
 
-##### 48、大数相加
+## 48、大数相加
 
-```
+``` javascript
 function sumBigNumber(a, b) {
     var res = '', //结果
         temp = 0; //按位加的结果及进位
@@ -1035,9 +1063,9 @@ function sumBigNumber(a, b) {
 
 ```
 
-##### 49、单例模式
+## 49、单例模式
 
-```
+``` javascript
 function getSingle(func) {
     var result;
     return function () {
@@ -1050,28 +1078,185 @@ function getSingle(func) {
 
 ```
 
-推荐阅读
+## 50、实现promise
 
-[33 个前端常用的 JavaScript 函数封装方法](http://mp.weixin.qq.com/s?__biz=MzAxODE4MTEzMA==&mid=2650089691&idx=1&sn=c91d3fa916ee972e312da4b59481691a&chksm=83dbb5beb4ac3ca8c29227db0130ff38180e75f12c60e479774d51b9fe58cf8e4661ef9362eb&scene=21#wechat_redirect)  
+``` javascript
+class MyPromise {
+  constructor(executor) { // executor执行器
+    this.status = 'pending' // 等待状态
+    this.value = null // 成功或失败的参数
+    this.fulfilledCallbacks = [] // 成功的函数队列
+    this.rejectedCallbacks = [] // 失败的函数队列
+    const that = this
+    function resolve(value) { // 成功的方法
+      if (that.status === 'pending') {
+        that.status = 'resolved'
+        that.value = value
+        that.fulfilledCallbacks.forEach(myFn => myFn(that.value)) //执行回调方法
+      }
+    }
+    function reject(value) { //失败的方法
+      if (that.status === 'pending') {
+        that.status = 'rejected'
+        that.value = value
+        that.rejectedCallbacks.forEach(myFn => myFn(that.value)) //执行回调方法
+      }
+    }
+    try {
+      executor(resolve, reject)
+    } catch (err) {
+      reject(err)
+    }
+  }
+  then(onFulfilled, onRejected) {
+    if (this.status === 'pending') {
+      // 等待状态，添加回调函数到成功的函数队列
+      this.fulfilledCallbacks.push(() => {
+        onFulfilled(this.value)
+      })
+      // 等待状态，添加回调函数到失败的函数队列
+      this.rejectedCallbacks.push(() => {
+        onRejected(this.value)
+      })
+    }
+    if (this.status === 'resolved') { // 支持同步调用
+      console.log('this', this)
+      onFulfilled(this.value)
+    }
+    if (this.status === 'rejected') { // 支持同步调用
+      onRejected(this.value)
+    }
+  }
+}
+```
 
-_END_
+## 51、组合继承
 
-关注下方「前端开发博客」，回复 “简历模板”
+```javascript
+function Parent(name) {
+  this.name = name
+}
+Parent.prototype.eat = function () {
+  console.log(this.name + ' is eating')
+}
 
-领取 33 个精选前端简历模板
+function Child(name, age) {
+  Parent.call(this, name) // 构造函数继承
+  this.age = age
+}
+Child.prototype = new Parent() // 原型链继承
+Child.prototype.contructor = Child
+Child.prototype.study = function () {
+  console.log(this.name + ' is studying')
+}
 
-公众号
+// 测试
+let child = new Child('xiaoming', 16)
+console.log(child.name) // xiaoming
+child.eat() // xiaoming is eating
+child.study() // xiaoming is studying	
+```
 
-❤️ 看完两件事
---------
+## 52、事件总线｜发布订阅模式
 
-如果你觉得这篇内容对你挺有启发，我想邀请你帮我两个小忙：
+```javascript
+class EventEmitter {
+  constructor() {
+    this.cache = {}
+  }
 
-1.  点个「**在看**」，让更多的人也能看到这篇内容（喜欢不点在看，都是耍流氓 -_-）
-    
-2.  关注公众号「**前端开发博客**」，每周重点攻克一个前端面试重难点
-    
+  on(name, fn) {
+    if (this.cache[name]) {
+      this.cache[name].push(fn)
+    } else {
+      this.cache[name] = [fn]
+    }
+  }
 
-![](https://mmbiz.qpic.cn/mmbiz_png/HLN2IKtpicicEJY0tknbZeyFqAU7pttoLsa47IXdBVQ6PshiamMibyQz0siceDhj7bSoqx2t51e0ibgQP3vG9STh9Jcg/640?wx_fmt=png)
+  off(name, fn) {
+    const tasks = this.cache[name]
+    if (tasks) {
+      const index = tasks.findIndex((f) => f === fn || f.callback === fn)
+      if (index >= 0) {
+        tasks.splice(index, 1)
+      }
+    }
+  }
 
-**如果觉得这篇文章还不错，来个【分享、点赞、在看】三连吧，让更多的人也看到~**
+  emit(name, once = false) {
+    if (this.cache[name]) {
+      // 创建副本，如果回调函数内继续注册相同事件，会造成死循环
+      const tasks = this.cache[name].slice()
+      for (let fn of tasks) {
+        fn();
+      }
+      if (once) {
+        delete this.cache[name]
+      }
+    }
+  }
+}
+
+// 测试
+const eventBus = new EventEmitter()
+const task1 = () => { console.log('task1'); }
+const task2 = () => { console.log('task2'); }
+
+eventBus.on('task', task1)
+eventBus.on('task', task2)
+eventBus.off('task', task1)
+setTimeout(() => {
+  eventBus.emit('task') // task2
+}, 1000)	
+```
+
+## 53、复制剪切板
+
+```javascript
+const copyToClipboard = (text) => navigator.clipboard.writeText(text);
+```
+
+## 54、检查日期是否有效
+
+```javascript
+const isDateValid = (...val) => !Number.isNaN(new Date(...val).valueOf());	
+```
+
+## 55、找出一年中的哪一天
+
+```javascript
+const dayOfYear = (date) =>  Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+```
+
+## 56、首字符串大写
+
+```javascript
+const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)capitalize("follow for more")
+```
+
+## 57、两日期之间的天数
+
+```javascript
+const dayDif = (date1, date2) => Math.ceil(Math.abs(date1.getTime() - date2.getTime()) / 86400000)dayDif(new Date("2020-10-21"), new Date("2021-10-22"))
+```
+
+## 58、清除所有 Cookie
+
+```javascript
+const clearCookies = document.cookie.split(';').forEach(cookie => document.cookie = cookie.replace(/^ +/, '')
+.replace(/=.*/, `=;expires=${new Date(0).toUTCString()};
+path=/`));
+```
+
+## 59、随机16进制
+
+```javascript
+const randomHex = () => `#${Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, "0")}`
+```
+
+## 60、选定文本
+
+```javascript
+const getSelectedText = () => window.getSelection().toString();	
+```
+
