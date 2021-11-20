@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "gitbook serve",
-    "book": "gitbook init"
+    "book": "gitbook init",
+    "down": "gitbook install"
   }
 }

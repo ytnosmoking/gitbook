@@ -1,6 +1,6 @@
 # Summary
 
-* [Introduction](README.md)
+* [GitBook配置](README.md)
 * Docker
     * [基本](Docker/基本.md)
 * Flutter
