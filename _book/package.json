@@ -1,0 +1,10 @@
+{
+  "name": "selfexp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "serve": "gitbook serve",
+    "book": "gitbook init",
+    "down": "gitbook install"
+  }
+}

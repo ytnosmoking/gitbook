@@ -9,4 +9,3 @@
   + expandable-chapters-small
   + expandable-chapters
   + search-pro
-+ 
