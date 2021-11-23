@@ -1,0 +1,1761 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>从零开始手写Promise · Study</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="ytnosmoking">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-pageview-count/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="100行代码实现 Promises_A+ 规范.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://gitee.com/go_show" target="_blank" class="custom-link">Gitee</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    GitBook配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    Docker
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../../Docker/基础篇.html">
+            
+                <a href="../../Docker/基础篇.html">
+            
+                    
+                    基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../../Docker/基本.html">
+            
+                <a href="../../Docker/基本.html">
+            
+                    
+                    基本
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    Flutter
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../../Flutter/学习.html">
+            
+                <a href="../../Flutter/学习.html">
+            
+                    
+                    学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    Git
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../../Git/stash.html">
+            
+                <a href="../../Git/stash.html">
+            
+                    
+                    stash
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../Git/命令.html">
+            
+                <a href="../../Git/命令.html">
+            
+                    
+                    命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" >
+            
+                <span>
+            
+                    
+                    Gulp
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../../Gulp/demo.html">
+            
+                <a href="../../Gulp/demo.html">
+            
+                    
+                    示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    Javascript
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../../JavaScript学习图谱/picture.html">
+            
+                <a href="../../JavaScript学习图谱/picture.html">
+            
+                    
+                    图
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    Node
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../../Node/Koa.js，离不开这十个中间件.html">
+            
+                <a href="../../Node/Koa.js，离不开这十个中间件.html">
+            
+                    
+                    koa
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../../Node/koa添加日志管理模块.html">
+            
+                <a href="../../Node/koa添加日志管理模块.html">
+            
+                    
+                    日志
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../../Node/nodejs n 管理模块.html">
+            
+                <a href="../../Node/nodejs n 管理模块.html">
+            
+                    
+                    n
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../../Node/PM2 常用命令.html">
+            
+                <a href="../../Node/PM2 常用命令.html">
+            
+                    
+                    koa
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../../Node/Redis 配置 _ 菜鸟教程.html">
+            
+                <a href="../../Node/Redis 配置 _ 菜鸟教程.html">
+            
+                    
+                    redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" >
+            
+                <span>
+            
+                    
+                    其他
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../../其他/Wi-Fi 破解.html">
+            
+                <a href="../../其他/Wi-Fi 破解.html">
+            
+                    
+                    wifi
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" >
+            
+                <span>
+            
+                    
+                    前端杂项
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" >
+            
+                <span>
+            
+                    
+                    Promise
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1.1" data-path="100行代码实现 Promises_A+ 规范.html">
+            
+                <a href="100行代码实现 Promises_A+ 规范.html">
+            
+                    
+                    100实现promise_A+
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.9.1.2" data-path="从零开始手写Promise.html">
+            
+                <a href="从零开始手写Promise.html">
+            
+                    
+                    从零开始手写Promise
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" >
+            
+                <span>
+            
+                    
+                    移动端
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.2.1" data-path="../移动端/postcss-px-to-vw.html">
+            
+                <a href="../移动端/postcss-px-to-vw.html">
+            
+                    
+                    postcss-px-vw
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../Error.html">
+            
+                <a href="../Error.html">
+            
+                    
+                    Error
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../JSON.parse实现深拷贝的弊端.html">
+            
+                <a href="../JSON.parse实现深拷贝的弊端.html">
+            
+                    
+                    JSON拷贝
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="../JS手写题.html">
+            
+                <a href="../JS手写题.html">
+            
+                    
+                    JS手写题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="../MIME.html">
+            
+                <a href="../MIME.html">
+            
+                    
+                    MIME
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="../个人总结.html">
+            
+                <a href="../个人总结.html">
+            
+                    
+                    个人总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.8" data-path="../优化.html">
+            
+                <a href="../优化.html">
+            
+                    
+                    优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.9" data-path="../前端性能优化.html">
+            
+                <a href="../前端性能优化.html">
+            
+                    
+                    前端性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.10" data-path="../原型、原型链以及继承.html">
+            
+                <a href="../原型、原型链以及继承.html">
+            
+                    
+                    原型、原型链以及继承
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.11" data-path="../常用正则.html">
+            
+                <a href="../常用正则.html">
+            
+                    
+                    常用正则
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.12" data-path="../数组去重.html">
+            
+                <a href="../数组去重.html">
+            
+                    
+                    数组去重
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.13" data-path="../方法封装.html">
+            
+                <a href="../方法封装.html">
+            
+                    
+                    方法封装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.14" data-path="../骨架屏项目实践.html">
+            
+                <a href="../骨架屏项目实践.html">
+            
+                    
+                    骨架屏项目实践
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" >
+            
+                <span>
+            
+                    
+                    前端框架
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" >
+            
+                <span>
+            
+                    
+                    Vue
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="../../前端框架/Vue/Vue3 学习手册.html">
+            
+                <a href="../../前端框架/Vue/Vue3 学习手册.html">
+            
+                    
+                    Vue3手册
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="../../前端框架/Vue/Vue 项目 优化 开发 生产.html">
+            
+                <a href="../../前端框架/Vue/Vue 项目 优化 开发 生产.html">
+            
+                    
+                    vue优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.3" data-path="../../前端框架/Vue/vite.config.ts 基础配置分享.html">
+            
+                <a href="../../前端框架/Vue/vite.config.ts 基础配置分享.html">
+            
+                    
+                    vite
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" >
+            
+                <span>
+            
+                    
+                    React
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="../../前端框架/React/React 不使用 eject 的配置方法（config-overrides 复现 vue 项目全部配置config-overrides.html">
+            
+                <a href="../../前端框架/React/React 不使用 eject 的配置方法（config-overrides 复现 vue 项目全部配置config-overrides.html">
+            
+                    
+                    react_config-overridess
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="../../前端框架/React/React 状态 管理工具.html">
+            
+                <a href="../../前端框架/React/React 状态 管理工具.html">
+            
+                    
+                    react-状态管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.3" data-path="../../前端框架/React/React Hooks区别.html">
+            
+                <a href="../../前端框架/React/React Hooks区别.html">
+            
+                    
+                    react-hooks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.4" data-path="../../前端框架/React/Mobx使用.html">
+            
+                <a href="../../前端框架/React/Mobx使用.html">
+            
+                    
+                    react-mobx
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.5" data-path="../../前端框架/React/自定义Hooks.html">
+            
+                <a href="../../前端框架/React/自定义Hooks.html">
+            
+                    
+                    自定义Hooks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.6" data-path="../../前端框架/React/生命周期 与 Hooks.html">
+            
+                <a href="../../前端框架/React/生命周期 与 Hooks.html">
+            
+                    
+                    生命周期与Hooks
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" >
+            
+                <span>
+            
+                    
+                    TypeScript
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.3.1" data-path="../../前端框架/TypeScript/TypeScript tsconfig.json 配置详解.html">
+            
+                <a href="../../前端框架/TypeScript/TypeScript tsconfig.json 配置详解.html">
+            
+                    
+                    tsconfig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" >
+            
+                <span>
+            
+                    
+                    面试
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../../前端面试/CSS.html">
+            
+                <a href="../../前端面试/CSS.html">
+            
+                    
+                    CSS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../../前端面试/Javascript.html">
+            
+                <a href="../../前端面试/Javascript.html">
+            
+                    
+                    Javascript
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../../前端面试/前端核心.html">
+            
+                <a href="../../前端面试/前端核心.html">
+            
+                    
+                    核心
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../../前端面试/前端进阶.html">
+            
+                <a href="../../前端面试/前端进阶.html">
+            
+                    
+                    进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../../前端面试/基础知识.html">
+            
+                <a href="../../前端面试/基础知识.html">
+            
+                    
+                    基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" >
+            
+                <span>
+            
+                    
+                    Linux
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../../Linux/命令.html">
+            
+                <a href="../../Linux/命令.html">
+            
+                    
+                    命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    树
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../../树/二叉树入门.html">
+            
+                <a href="../../树/二叉树入门.html">
+            
+                    
+                    二叉树入门
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.2" data-path="../../树/平衡树.html">
+            
+                <a href="../../树/平衡树.html">
+            
+                    
+                    平衡树
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" >
+            
+                <span>
+            
+                    
+                    文档
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../../相关开发文档/相关库 开发文档链接.html">
+            
+                <a href="../../相关开发文档/相关库 开发文档链接.html">
+            
+                    
+                    链接
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
+            
+                <span>
+            
+                    
+                    规范
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../../规范/前端使用 Commitizen 规范 git commit 全中文汉化.html">
+            
+                <a href="../../规范/前端使用 Commitizen 规范 git commit 全中文汉化.html">
+            
+                    
+                    规范
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >从零开始手写Promise</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <blockquote>
+<p>&#x672C;&#x6587;&#x7531; <a href="http://ksria.com/simpread/" target="_blank">&#x7B80;&#x60A6; SimpRead</a> &#x8F6C;&#x7801;&#xFF0C; &#x539F;&#x6587;&#x5730;&#x5740; <a href="https://zhuanlan.zhihu.com/p/144058361" target="_blank">zhuanlan.zhihu.com</a></p>
+</blockquote>
+<p>&#x9762;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#x7ECF;&#x5E38;&#x4F1A;&#x95EE;&#x5230; Promise &#x7684;&#x4F7F;&#x7528;&#xFF1B;&#x6709;&#x7684;&#x9762;&#x8BD5;&#x5B98;&#x518D;&#x6DF1;&#x5165;&#x4E00;&#x70B9;&#xFF0C;&#x4F1A;&#x7EE7;&#x7EED;&#x95EE;&#x662F;&#x5426;&#x4E86;&#x89E3; Promise &#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#xFF0C;&#x6216;&#x8005;&#x6709;&#x6CA1;&#x6709;&#x9605;&#x8BFB;&#x8FC7; Promise &#x7684;&#x6E90;&#x7801;&#xFF1B;&#x4ECA;&#x5929;&#x6211;&#x4EEC;&#x5C31;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#xFF0C;Promise &#x5728;&#x5185;&#x90E8;&#x662F;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x6765;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x7684;&#x3002;</p>
+<h2 id="&#x4EC0;&#x4E48;&#x662F;-promise">&#x4EC0;&#x4E48;&#x662F; Promise</h2>
+<p>&#x6240;&#x8C13; Promise&#xFF0C;&#x7B80;&#x5355;&#x8BF4;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x5BB9;&#x5668;&#xFF0C;&#x91CC;&#x9762;&#x4FDD;&#x5B58;&#x7740;&#x67D0;&#x4E2A;&#x672A;&#x6765;&#x624D;&#x4F1A;&#x7ED3;&#x675F;&#x7684;&#x4E8B;&#x4EF6;&#xFF08;&#x901A;&#x5E38;&#x662F;&#x4E00;&#x4E2A;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#xFF09;&#x7684;&#x7ED3;&#x679C;&#x3002;&#x4ECE;&#x8BED;&#x6CD5;&#x4E0A;&#x8BF4;&#xFF0C;Promise &#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x4ECE;&#x5B83;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x7684;&#x6D88;&#x606F;&#x3002;<code>Promise</code>&#x63D0;&#x4F9B;&#x7EDF;&#x4E00;&#x7684;<code>API</code>&#xFF0C;&#x5404;&#x79CD;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x90FD;&#x53EF;&#x4EE5;&#x7528;&#x540C;&#x6837;&#x7684;&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x5904;&#x7406;&#x3002;</p>
+<p>Promise &#x51FA;&#x73B0;&#x4E4B;&#x524D;&#x90FD;&#x662F;&#x901A;&#x8FC7;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x672C;&#x8EAB;&#x6CA1;&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x4F46;&#x662F;&#x5D4C;&#x5957;&#x5C42;&#x7EA7;&#x8FC7;&#x6DF1;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x6389;&#x8FDB;<code>&#x56DE;&#x8C03;&#x5730;&#x72F1;</code>&#x3002;</p>
+<pre><code>const fs = require(&apos;fs&apos;);
+fs.readFile(&apos;1.txt&apos;, (err,data) =&gt; {
+    fs.readFile(&apos;2.txt&apos;, (err,data) =&gt; {
+        fs.readFile(&apos;3.txt&apos;, (err,data) =&gt; {
+            //&#x53EF;&#x80FD;&#x8FD8;&#x6709;&#x540E;&#x7EED;&#x4EE3;&#x7801;
+        });
+    });
+});
+</code></pre><p>&#x5982;&#x679C;&#x6BCF;&#x6B21;&#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x540E;&#x8FD8;&#x8981;&#x8FDB;&#x884C;&#x903B;&#x8F91;&#x7684;&#x5224;&#x65AD;&#x6216;&#x8005;&#x5F02;&#x5E38;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x90A3;&#x4E48;&#x6574;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x5C31;&#x4F1A;&#x975E;&#x5E38;&#x590D;&#x6742;&#x4E14;&#x96BE;&#x4EE5;&#x7EF4;&#x62A4;&#x3002;Promise &#x7684;&#x51FA;&#x73B0;&#x6B63;&#x662F;&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x75DB;&#x70B9;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x628A;&#x4E0A;&#x9762;&#x7684;&#x56DE;&#x8C03;&#x5D4C;&#x5957;&#x7528; Promise &#x6539;&#x5199;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<pre><code>const readFile = function(fileName){
+    return new Promise((resolve, reject)=&gt;{
+        fs.readFile(fileName, (err, data)=&gt;{
+            if(err){
+                reject(err)
+            } else {
+                resolve(data)
+            }
+        })
+    })
+}
+
+readFile(&apos;1.txt&apos;)
+    .then(data =&gt; {
+        return readFile(&apos;2.txt&apos;);
+    }).then(data =&gt; {
+        return readFile(&apos;3.txt&apos;);
+    }).then(data =&gt; {
+        //...
+    });
+</code></pre><h2 id="promise-&#x89C4;&#x8303;">Promise &#x89C4;&#x8303;</h2>
+<p>promise &#x6700;&#x65E9;&#x662F;&#x5728; commonjs &#x793E;&#x533A;&#x63D0;&#x51FA;&#x6765;&#x7684;&#xFF0C;&#x5F53;&#x65F6;&#x63D0;&#x51FA;&#x4E86;&#x5F88;&#x591A;&#x89C4;&#x8303;&#x3002;&#x6BD4;&#x8F83;&#x63A5;&#x53D7;&#x7684;&#x662F; promise/A &#x89C4;&#x8303;&#x3002;&#x4F46;&#x662F; promise/A &#x89C4;&#x8303;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x540E;&#x6765;&#x4EBA;&#x4EEC;&#x5728;&#x8FD9;&#x4E2A;&#x57FA;&#x7840;&#x4E0A;&#xFF0C;&#x63D0;&#x51FA;&#x4E86; promise/A + &#x89C4;&#x8303;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5B9E;&#x9645;&#x4E0A;&#x7684;&#x4E1A;&#x5185;&#x63A8;&#x884C;&#x7684;&#x89C4;&#x8303;&#xFF1B;es6 &#x4E5F;&#x662F;&#x91C7;&#x7528;&#x7684;&#x8FD9;&#x79CD;&#x89C4;&#x8303;&#xFF0C;&#x4F46;&#x662F; es6 &#x5728;&#x6B64;&#x89C4;&#x8303;&#x4E0A;&#x8FD8;&#x52A0;&#x5165;&#x4E86; Promise.all&#x3001;Promise.race&#x3001;Promise.catch&#x3001;Promise.resolve&#x3001;Promise.reject &#x7B49;&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x811A;&#x672C;&#x6765;&#x6D4B;&#x8BD5;&#x6211;&#x4EEC;&#x5199;&#x7684; Promise &#x662F;&#x5426;&#x7B26;&#x5408; promise/A + &#x7684;&#x89C4;&#x8303;&#x3002;&#x5C06;&#x6211;&#x4EEC;&#x5B9E;&#x73B0;&#x7684; Promise &#x52A0;&#x5165;&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code>Promise.defer = Promise.deferred = function () {
+    let dfd = {};
+    dfd.promise = new Promise((resolve, reject) =&gt; {
+        dfd.resolve = resolve;
+        dfd.reject = reject;
+    });
+    return dfd;
+}
+</code></pre><p>&#x7136;&#x540E;&#x901A;&#x8FC7; module.exports &#x5BFC;&#x51FA;&#xFF0C;&#x5B89;&#x88C5;&#x6D4B;&#x8BD5;&#x7684;&#x811A;&#x672C;&#xFF1A;</p>
+<pre><code>npm install -g promises-aplus-tests
+</code></pre><p>&#x5728;&#x5B9E;&#x73B0; Promise &#x7684;&#x76EE;&#x5F55;&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#xFF1A;</p>
+<pre><code>promises-aplus-tests promise.js
+</code></pre><p>&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x811A;&#x672C;&#x4F1A;&#x5BF9;&#x7167;&#x7740; promise/A + &#x7684;&#x89C4;&#x8303;&#xFF0C;&#x5BF9;&#x6211;&#x4EEC;&#x7684;&#x811A;&#x672C;&#x6765;&#x4E00;&#x6761;&#x4E00;&#x6761;&#x5730;&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#x3002;</p>
+<h2 id="promise-&#x57FA;&#x672C;&#x7ED3;&#x6784;">Promise &#x57FA;&#x672C;&#x7ED3;&#x6784;</h2>
+<p>&#x6211;&#x4EEC;&#x5148;&#x56DE;&#x987E;&#x4E00;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x5E73;&#x65F6;&#x90FD;&#x662F;&#x600E;&#x4E48;&#x4F7F;&#x7528; Promise &#x7684;&#xFF1A;</p>
+<pre><code>var p = new Promise(function(resolve, reject){
+    console.log(&apos;&#x6267;&#x884C;&apos;)
+    setTimeout(function(){
+        resolve(2)
+    }, 1000)
+})
+p.then(function(res){
+    console.log(&apos;suc&apos;,res)
+},function(err){
+    console.log(&apos;err&apos;,err)
+})
+</code></pre><p>&#x9996;&#x5148;&#x770B;&#x51FA;&#x6765;&#xFF0C;Promise &#x662F;&#x901A;&#x8FC7;&#x6784;&#x9020;&#x51FD;&#x6570;&#x5B9E;&#x4F8B;&#x5316;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x4E0A;&#x7684; then &#x65B9;&#x6CD5;&#xFF0C;&#x6765;&#x5904;&#x7406;&#x5F02;&#x6B65;&#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x679C;&#x3002;&#x540C;&#x65F6;&#xFF0C;promise/A + &#x89C4;&#x8303;&#x89C4;&#x5B9A;&#x4E86;&#xFF1A;</p>
+<blockquote>
+<p>promise &#x662F;&#x4E00;&#x4E2A;&#x62E5;&#x6709; then &#x65B9;&#x6CD5;&#x7684;&#x5BF9;&#x8C61;&#x6216;&#x51FD;&#x6570;&#xFF0C;&#x5176;&#x884C;&#x4E3A;&#x7B26;&#x5408;&#x672C;&#x89C4;&#x8303;&#xFF1B;<br>&#x4E00;&#x4E2A; Promise &#x7684;&#x5F53;&#x524D;&#x72B6;&#x6001;&#x5FC5;&#x987B;&#x4E3A;&#x4EE5;&#x4E0B;&#x4E09;&#x79CD;&#x72B6;&#x6001;&#x4E2D;&#x7684;&#x4E00;&#x79CD;&#xFF1A;&#x7B49;&#x5F85;&#x6001;&#xFF08;Pending&#xFF09;&#x3001;&#x6267;&#x884C;&#x6001;&#xFF08;Fulfilled&#xFF09;&#x548C;&#x62D2;&#x7EDD;&#x6001;&#xFF08;Rejected&#xFF09;&#x3002;  </p>
+</blockquote>
+<pre><code>const PENDING = &apos;pending&apos;
+const FULFILLED = &apos;fulfilled&apos;
+const REJECTED = &apos;rejected&apos;
+
+function Promise(executor) {
+    var _this = this
+    this.state = PENDING; //&#x72B6;&#x6001;
+    this.value = undefined; //&#x6210;&#x529F;&#x7ED3;&#x679C;
+    this.reason = undefined; //&#x5931;&#x8D25;&#x539F;&#x56E0;
+    function resolve(value) {}
+    function reject(reason) {}
+}
+
+Promise.prototype.then = function (onFulfilled, onRejected) {
+};
+
+module.exports = Promise;
+</code></pre><p>&#x5F53;&#x6211;&#x4EEC;&#x5B9E;&#x4F8B;&#x5316; Promise &#x65F6;&#xFF0C;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4F1A;&#x9A6C;&#x4E0A;&#x8C03;&#x7528;&#x4F20;&#x5165;&#x7684;&#x6267;&#x884C;&#x51FD;&#x6570; executor&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8BD5;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<pre><code>let p = new Promise((resolve, reject) =&gt; {
+    console.log(&apos;&#x6267;&#x884C;&#x4E86;&apos;);
+});
+</code></pre><p>&#x56E0;&#x6B64;&#x5728; Promise &#x4E2D;&#x6784;&#x9020;&#x51FD;&#x6570;&#x7ACB;&#x9A6C;&#x6267;&#x884C;&#xFF0C;&#x540C;&#x65F6;&#x5C06; resolve &#x51FD;&#x6570;&#x548C; reject &#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x4F20;&#x5165;&#xFF1A;</p>
+<pre><code>function Promise(executor) {
+    var _this = this
+    this.state = PENDING; //&#x72B6;&#x6001;
+    this.value = undefined; //&#x6210;&#x529F;&#x7ED3;&#x679C;
+    this.reason = undefined; //&#x5931;&#x8D25;&#x539F;&#x56E0;
+    function resolve(value) {}
+    function reject(reason) {}
+    executor(resolve, reject)
+}
+</code></pre><p>&#x4F46;&#x662F; executor &#x4E5F;&#x4F1A;&#x53EF;&#x80FD;&#x5B58;&#x5728;&#x5F02;&#x5E38;&#xFF0C;&#x56E0;&#x6B64;&#x901A;&#x8FC7; try/catch &#x6765;&#x6355;&#x83B7;&#x4E00;&#x4E0B;&#x5F02;&#x5E38;&#x60C5;&#x51B5;&#xFF1A;</p>
+<pre><code>try {
+    executor(resolve, reject);
+} catch (e) {
+    reject(e);
+}
+</code></pre><h2 id="&#x4E0D;&#x53EF;&#x53D8;">&#x4E0D;&#x53EF;&#x53D8;</h2>
+<p>promise/A + &#x89C4;&#x8303;&#x4E2D;&#x89C4;&#x5B9A;&#xFF0C;&#x5F53; Promise &#x5BF9;&#x8C61;&#x5DF2;&#x7ECF;&#x7531;&#x7B49;&#x5F85;&#x6001;&#xFF08;Pending&#xFF09;&#x6539;&#x53D8;&#x4E3A;&#x6267;&#x884C;&#x6001;&#xFF08;Fulfilled&#xFF09;&#x6216;&#x8005;&#x62D2;&#x7EDD;&#x6001;&#xFF08;Rejected&#xFF09;&#x540E;&#xFF0C;&#x5C31;&#x4E0D;&#x80FD;&#x518D;&#x6B21;&#x66F4;&#x6539;&#x72B6;&#x6001;&#xFF0C;&#x4E14;&#x7EC8;&#x503C;&#x4E5F;&#x4E0D;&#x53EF;&#x6539;&#x53D8;&#x3002;</p>
+<p><img src="https://pic3.zhimg.com/v2-e61d3ff098257ff98ab82150db92c572_b.jpg" alt=""></p>
+<p>&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x5728;&#x56DE;&#x8C03;&#x51FD;&#x6570; resolve &#x548C; reject &#x4E2D;&#x5224;&#x65AD;&#xFF0C;&#x53EA;&#x80FD;&#x662F; pending &#x72B6;&#x6001;&#x7684;&#x65F6;&#x5019;&#x624D;&#x80FD;&#x66F4;&#x6539;&#x72B6;&#x6001;&#xFF1A;</p>
+<pre><code>function resolve(value) {
+    if(_this.state === PENDING){
+        _this.state = FULFILLED
+        _this.value = value
+    }
+}
+function reject(reason) {
+    if(_this.state === PENDING){
+        _this.state = REJECTED
+        _this.reason = reason
+    }
+}
+</code></pre><p>&#x6211;&#x4EEC;&#x66F4;&#x6539;&#x72B6;&#x6001;&#x7684;&#x540C;&#x65F6;&#xFF0C;&#x5C06;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4E2D;&#x6210;&#x529F;&#x7684;&#x7ED3;&#x679C;&#x6216;&#x8005;&#x5931;&#x8D25;&#x7684;&#x539F;&#x56E0;&#x90FD;&#x4FDD;&#x5B58;&#x5728;&#x5BF9;&#x5E94;&#x7684;&#x5C5E;&#x6027;&#x4E2D;&#xFF0C;&#x65B9;&#x4FBF;&#x4EE5;&#x540E;&#x6765;&#x83B7;&#x53D6;&#x3002;</p>
+<h2 id="then-&#x5B9E;&#x73B0;">then &#x5B9E;&#x73B0;</h2>
+<p>&#x5F53; Promise &#x7684;&#x72B6;&#x6001;&#x6539;&#x53D8;&#x4E4B;&#x540E;&#xFF0C;&#x4E0D;&#x7BA1;&#x6210;&#x529F;&#x8FD8;&#x662F;&#x5931;&#x8D25;&#xFF0C;&#x90FD;&#x4F1A;&#x89E6;&#x53D1; then &#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;&#x56E0;&#x6B64;&#xFF0C;then &#x7684;&#x5B9E;&#x73B0;&#x4E5F;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5C31;&#x662F;&#x6839;&#x636E;&#x72B6;&#x6001;&#x7684;&#x4E0D;&#x540C;&#xFF0C;&#x6765;&#x8C03;&#x7528;&#x4E0D;&#x540C;&#x5904;&#x7406;&#x7EC8;&#x503C;&#x7684;&#x51FD;&#x6570;&#x3002;</p>
+<pre><code>Promise.prototype.then = function (onFulfilled, onRejected) {
+    if(this.state === FULFILLED){
+        typeof onFulfilled === &apos;function&apos; &amp;&amp; onFulfilled(this.value)
+    }
+    if(this.state === REJECTED){
+        typeof onRejected === &apos;function&apos; &amp;&amp; onRejected(this.reason)
+    }
+};
+</code></pre><p>&#x5728;&#x89C4;&#x8303;&#x4E2D;&#x4E5F;&#x8BF4;&#x4E86;&#xFF0C;onFulfilled &#x548C; onRejected &#x662F;&#x53EF;&#x9009;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x5BF9;&#x4E24;&#x4E2A;&#x503C;&#x8FDB;&#x884C;&#x4E00;&#x4E0B;&#x7C7B;&#x578B;&#x7684;&#x5224;&#x65AD;&#xFF1A;</p>
+<blockquote>
+<p>onFulfilled &#x548C; onRejected &#x90FD;&#x662F;&#x53EF;&#x9009;&#x53C2;&#x6570;&#x3002;&#x5982;&#x679C; onFulfilled &#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x5176;&#x5FC5;&#x987B;&#x88AB;&#x5FFD;&#x7565;&#x3002;&#x5982;&#x679C; onRejected &#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x5176;&#x5FC5;&#x987B;&#x88AB;&#x5FFD;&#x7565;  </p>
+</blockquote>
+<p>&#x4EE3;&#x7801;&#x5199;&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x8C8C;&#x4F3C;&#x8BE5;&#x6709;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#x90FD;&#x6709;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x6765;&#x5199;&#x4E2A; demo &#x6D4B;&#x8BD5;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<pre><code>var myP = new Promise(function(resolve, reject){
+    console.log(&apos;&#x6267;&#x884C;&apos;)
+    setTimeout(function(){
+        reject(3)
+    }, 1000)
+});
+
+myP.then(function(res){
+    console.log(res)
+},function(err){
+    console.log(err)
+});
+</code></pre><p>&#x7136;&#x9E45;&#xFF0C;&#x5F88;&#x9057;&#x61BE;&#xFF0C;&#x8FD0;&#x884C;&#x8D77;&#x6765;&#x6211;&#x4EEC;&#x53D1;&#x73B0;&#x53EA;&#x6253;&#x5370;&#x4E86;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E2D;&#x7684;<code>&#x6267;&#x884C;</code>&#xFF0C;&#x4E0B;&#x9762;&#x7684; then &#x51FD;&#x6570;&#x6839;&#x672C;&#x90FD;&#x6CA1;&#x6709;&#x6267;&#x884C;&#x3002;&#x6211;&#x4EEC;&#x6574;&#x7406;&#x4E00;&#x4E0B;&#x4EE3;&#x7801;&#x7684;&#x8FD0;&#x884C;&#x6D41;&#x7545;&#xFF1A;</p>
+<p><img src="https://pic1.zhimg.com/v2-7653ff8406384d1a0a9ed3e96f2ee29c_r.jpg" alt=""></p>
+<p>&#x5F53; then &#x91CC;&#x9762;&#x51FD;&#x6570;&#x8FD0;&#x884C;&#x65F6;&#xFF0C;resolve &#x7531;&#x4E8E;&#x662F;&#x5F02;&#x6B65;&#x6267;&#x884C;&#x7684;&#xFF0C;&#x8FD8;&#x6CA1;&#x6709;&#x6765;&#x5F97;&#x53CA;&#x4FEE;&#x6539; state&#xFF0C;&#x6B64;&#x65F6;&#x8FD8;&#x662F; PENDING &#x72B6;&#x6001;&#xFF1B;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5BF9;&#x5F02;&#x6B65;&#x7684;&#x60C5;&#x51B5;&#x505A;&#x4E00;&#x4E0B;&#x5904;&#x7406;&#x3002;</p>
+<h2 id="&#x652F;&#x6301;&#x5F02;&#x6B65;">&#x652F;&#x6301;&#x5F02;&#x6B65;</h2>
+<p>&#x90A3;&#x4E48;&#x5982;&#x4F55;&#x8BA9;&#x6211;&#x4EEC;&#x7684; Promise &#x6765;&#x652F;&#x6301;&#x5F02;&#x6B65;&#x5462;&#xFF1F;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x53C2;&#x8003;&#x53D1;&#x5E03;&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#xFF0C;&#x5728;&#x6267;&#x884C; then &#x65B9;&#x6CD5;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x5F53;&#x524D;&#x8FD8;&#x662F; PENDING &#x72B6;&#x6001;&#xFF0C;&#x5C31;&#x628A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x5BC4;&#x5B58;&#x5230;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x4E2D;&#xFF0C;&#x5F53;&#x72B6;&#x6001;&#x53D1;&#x751F;&#x6539;&#x53D8;&#x65F6;&#xFF0C;&#x53BB;&#x6570;&#x7EC4;&#x4E2D;&#x53D6;&#x51FA;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF1B;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x5148;&#x5728; Promise &#x4E2D;&#x5B9A;&#x4E49;&#x4E00;&#x4E0B;&#x53D8;&#x91CF;&#xFF1A;</p>
+<pre><code>function Promise(executor) {
+    this.onFulfilled = [];//&#x6210;&#x529F;&#x7684;&#x56DE;&#x8C03;
+    this.onRejected = []; //&#x5931;&#x8D25;&#x7684;&#x56DE;&#x8C03;
+}
+</code></pre><p>&#x8FD9;&#x6837;&#xFF0C;&#x5F53; then &#x6267;&#x884C;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x8FD8;&#x662F; PENDING &#x72B6;&#x6001;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x662F;&#x9A6C;&#x4E0A;&#x53BB;&#x6267;&#x884C;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x800C;&#x662F;&#x5C06;&#x5176;&#x5B58;&#x50A8;&#x8D77;&#x6765;&#xFF1A;</p>
+<pre><code>Promise.prototype.then = function (onFulfilled, onRejected) {
+    if(this.state === FULFILLED){
+        typeof onFulfilled === &apos;function&apos; &amp;&amp; onFulfilled(this.value)
+    }
+    if(this.state === REJECTED){
+        typeof onRejected === &apos;function&apos; &amp;&amp; onRejected(this.reason)
+    }
+    if(this.state === PENDING){
+        typeof onFulfilled === &apos;function&apos; &amp;&amp; this.onFulfilled.push(onFulfilled)
+        typeof onRejected === &apos;function&apos; &amp;&amp; this.onRejected.push(onRejected)
+    }
+};
+</code></pre><p>&#x5B58;&#x50A8;&#x8D77;&#x6765;&#x540E;&#xFF0C;&#x5F53; resolve &#x6216;&#x8005; reject &#x5F02;&#x6B65;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x53EF;&#x4EE5;&#x6765;&#x8C03;&#x7528;&#x4E86;&#xFF1A;</p>
+<pre><code>function resolve(value) {
+    if(_this.state === PENDING){
+        _this.state = FULFILLED
+        _this.value = value
+        _this.onFulfilled.forEach(fn =&gt; fn(value))
+    }
+}
+function reject(reason) {
+    if(_this.state === PENDING){
+        _this.state = REJECTED
+        _this.reason = reason
+        _this.onRejected.forEach(fn =&gt; fn(reason))
+    }
+}
+</code></pre><p>&#x6709;&#x7AE5;&#x978B;&#x53EF;&#x80FD;&#x4F1A;&#x63D0;&#x51FA;&#x7591;&#x95EE;&#x4E86;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD9;&#x8FB9; onFulfilled &#x548C; onRejected &#x8981;&#x5B58;&#x5728;&#x6570;&#x7EC4;&#x4E2D;&#xFF0C;&#x76F4;&#x63A5;&#x7528;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x63A5;&#x6536;&#x4E0D;&#x662F;&#x4E5F;&#x53EF;&#x4EE5;&#x4E48;&#xFF1F;&#x4E0B;&#x9762;&#x770B;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code>var p = new Promise((resolve, reject)=&gt;{
+    setTimeout(()=&gt;{
+        resolve(4)
+    }, 0)
+})
+p.then((res)=&gt;{
+    //4 res
+    console.log(res, &apos;res&apos;)
+})
+p.then((res1)=&gt;{
+    //4 res1
+    console.log(res1, &apos;res1&apos;)
+})
+</code></pre><p>&#x6211;&#x4EEC;&#x5206;&#x522B;&#x8C03;&#x7528;&#x4E86;&#x4E24;&#x6B21; then&#xFF0C;&#x5982;&#x679C;&#x662F;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x7684;&#x8BDD;&#xFF0C;&#x6700;&#x540E;&#x80AF;&#x5B9A;&#x53EA;&#x4F1A;&#x8FD0;&#x884C;&#x540E;&#x4E00;&#x4E2A; then&#xFF0C;&#x628A;&#x4E4B;&#x524D;&#x7684;&#x8986;&#x76D6;&#x4E86;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x6570;&#x7EC4;&#x7684;&#x8BDD;&#xFF0C;&#x4E24;&#x4E2A; then &#x90FD;&#x80FD;&#x6B63;&#x5E38;&#x8FD0;&#x884C;&#x3002;</p>
+<p>&#x81F3;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x8FD0;&#x884C; demo&#xFF0C;&#x5C31;&#x80FD;&#x5982;&#x613F;&#x4EE5;&#x507F;&#x7684;&#x770B;&#x5230;&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#x4E86;&#xFF1B;&#x4E00;&#x4E2A;&#x56DB;&#x5341;&#x884C;&#x5DE6;&#x53F3;&#x7684;&#x7B80;&#x5355; Promise &#x57AB;&#x7247;&#x5C31;&#x6B64;&#x5B8C;&#x6210;&#x4E86;&#x3002;&#x8FD9;&#x91CC;&#x8D34;&#x4E00;&#x4E0B;&#x5B8C;&#x6574;&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code>const PENDING = &apos;pending&apos;
+const FULFILLED = &apos;fulfilled&apos;
+const REJECTED = &apos;rejected&apos;
+function Promise(executor) {
+    var _this = this
+    this.state = PENDING; //&#x72B6;&#x6001;
+    this.value = undefined; //&#x6210;&#x529F;&#x7ED3;&#x679C;
+    this.reason = undefined; //&#x5931;&#x8D25;&#x539F;&#x56E0;
+
+    this.onFulfilled = [];//&#x6210;&#x529F;&#x7684;&#x56DE;&#x8C03;
+    this.onRejected = []; //&#x5931;&#x8D25;&#x7684;&#x56DE;&#x8C03;
+    function resolve(value) {
+        if(_this.state === PENDING){
+            _this.state = FULFILLED
+            _this.value = value
+            _this.onFulfilled.forEach(fn =&gt; fn(value))
+        }
+    }
+    function reject(reason) {
+        if(_this.state === PENDING){
+            _this.state = REJECTED
+            _this.reason = reason
+            _this.onRejected.forEach(fn =&gt; fn(reason))
+        }
+    }
+    try {
+        executor(resolve, reject);
+    } catch (e) {
+        reject(e);
+    }
+}
+Promise.prototype.then = function (onFulfilled, onRejected) {
+    if(this.state === FULFILLED){
+        typeof onFulfilled === &apos;function&apos; &amp;&amp; onFulfilled(this.value)
+    }
+    if(this.state === REJECTED){
+        typeof onRejected === &apos;function&apos; &amp;&amp; onRejected(this.reason)
+    }
+    if(this.state === PENDING){
+        typeof onFulfilled === &apos;function&apos; &amp;&amp; this.onFulfilled.push(onFulfilled)
+        typeof onRejected === &apos;function&apos; &amp;&amp; this.onRejected.push(onRejected)
+    }
+};
+</code></pre><h2 id="&#x94FE;&#x5F0F;&#x8C03;&#x7528;-then">&#x94FE;&#x5F0F;&#x8C03;&#x7528; then</h2>
+<p>&#x76F8;&#x4FE1;&#x4E0A;&#x9762;&#x7684; Promise &#x57AB;&#x7247;&#x5E94;&#x8BE5;&#x5F88;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#xFF0C;&#x4E0B;&#x9762;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x624D;&#x662F; Promise &#x7684;&#x96BE;&#x70B9;&#x548C;&#x6838;&#x5FC3;&#x70B9;&#xFF1B;&#x6211;&#x4EEC;&#x5BF9;&#x7167; promise/A + &#x89C4;&#x8303;&#xFF0C;&#x4E00;&#x6B65;&#x4E00;&#x6B65;&#x5730;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x89C4;&#x8303;&#x662F;&#x5982;&#x4F55;&#x6765;&#x5B9A;&#x4E49;&#x7684;&#xFF1A;</p>
+<blockquote>
+<p>then &#x65B9;&#x6CD5;&#x5FC5;&#x987B;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; promise &#x5BF9;&#x8C61;<br>promise2 = promise1.then(onFulfilled, onRejected);  </p>
+</blockquote>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x6BCF;&#x4E2A; then &#x65B9;&#x6CD5;&#x90FD;&#x8981;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x7684; Promise &#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x6837;&#x6211;&#x4EEC;&#x7684; then &#x65B9;&#x6CD5;&#x624D;&#x80FD;&#x4E0D;&#x65AD;&#x7684;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#xFF1B;&#x56E0;&#x6B64;&#x4E0A;&#x9762;&#x7684;&#x7B80;&#x5355;&#x57AB;&#x7247;&#x4E2D; then &#x65B9;&#x6CD5;&#x5C31;&#x4E0D;&#x9002;&#x7528;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4EC0;&#x4E48;&#x90FD;&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#xFF0C;&#x6211;&#x4EEC;&#x5BF9;&#x5176;&#x8FDB;&#x884C;&#x7B80;&#x5355;&#x7684;&#x6539;&#x5199;&#xFF0C;&#x4E0D;&#x8BBA; then &#x8FDB;&#x884C;&#x4EC0;&#x4E48;&#x64CD;&#x4F5C;&#xFF0C;&#x90FD;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x7684; Promise &#x5BF9;&#x8C61;&#xFF1A;</p>
+<pre><code>Promise.prototype.then = function (onFulfilled, onRejected) {
+    let promise2 = new Promise((resolve, reject)=&gt;{
+    })
+    return promise2
+}
+</code></pre><p>&#x6211;&#x4EEC;&#x7EE7;&#x7EED;&#x770B; then &#x7684;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#xFF1A;</p>
+<ol>
+<li>&#x5982;&#x679C; onFulfilled &#x6216;&#x8005; onRejected &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x503C; x &#xFF0C;&#x5219;&#x8FD0;&#x884C;&#x4E0B;&#x9762;&#x7684; Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;&#xFF1A;<code>[[Resolve]](promise2, x)</code></li>
+<li>&#x5982;&#x679C; onFulfilled &#x6216;&#x8005; onRejected &#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x5F02;&#x5E38; e &#xFF0C;&#x5219; promise2 &#x5FC5;&#x987B;&#x62D2;&#x7EDD;&#x6267;&#x884C;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x62D2;&#x56E0; e</li>
+<li>&#x5982;&#x679C; onFulfilled &#x4E0D;&#x662F;&#x51FD;&#x6570;&#x4E14; promise1 &#x6210;&#x529F;&#x6267;&#x884C;&#xFF0C; promise2 &#x5FC5;&#x987B;&#x6210;&#x529F;&#x6267;&#x884C;&#x5E76;&#x8FD4;&#x56DE;&#x76F8;&#x540C;&#x7684;&#x503C;</li>
+<li>&#x5982;&#x679C; onRejected &#x4E0D;&#x662F;&#x51FD;&#x6570;&#x4E14; promise1 &#x62D2;&#x7EDD;&#x6267;&#x884C;&#xFF0C; promise2 &#x5FC5;&#x987B;&#x62D2;&#x7EDD;&#x6267;&#x884C;&#x5E76;&#x8FD4;&#x56DE;&#x76F8;&#x540C;&#x7684;&#x636E;&#x56E0;</li>
+</ol>
+<p>&#x9996;&#x5148;&#x7B2C;&#x4E00;&#x70B9;&#xFF0C;&#x6211;&#x4EEC;&#x77E5;&#x9053; onFulfilled &#x548C; onRejected &#x6267;&#x884C;&#x4E4B;&#x540E;&#x90FD;&#x4F1A;&#x6709;&#x4E00;&#x4E2A;&#x8FD4;&#x56DE;&#x503C; x&#xFF0C;&#x5BF9;&#x8FD4;&#x56DE;&#x503C; x &#x5904;&#x7406;&#x5C31;&#x9700;&#x8981;&#x7528;&#x5230; Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;&#xFF0C;&#x8FD9;&#x4E2A;&#x6211;&#x4EEC;&#x4E0B;&#x9762;&#x518D;&#x8BF4;&#xFF1B;&#x7B2C;&#x4E8C;&#x70B9;&#x9700;&#x8981;&#x5BF9; onFulfilled &#x548C; onRejected &#x8FDB;&#x884C;&#x5F02;&#x5E38;&#x5904;&#x7406;&#xFF0C;&#x6CA1;&#x4EC0;&#x4E48;&#x597D;&#x8BF4;&#x7684;&#xFF1B;&#x7B2C;&#x4E09;&#x548C;&#x7B2C;&#x56DB;&#x70B9;&#xFF0C;&#x8BF4;&#x7684;&#x5176;&#x5B9E;&#x662F;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x5982;&#x679C; onFulfilled &#x548C; onRejected &#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x6CA1;&#x6709;&#x4F20;&#xFF0C;&#x5219;&#x7EE7;&#x7EED;&#x5F80;&#x4E0B;&#x4F20;&#xFF08;&#x503C;&#x7684;&#x4F20;&#x9012;&#x7279;&#x6027;&#xFF09;&#xFF1B;&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code>var p = new Promise(function(resolve, reject){
+    setTimeout(function(){
+        resolve(3)
+    }, 1000)
+});
+p.then(1,1)
+.then(&apos;&apos;,&apos;&apos;)
+.then()
+.then(function(res){
+    //3
+    console.log(res)
+})
+</code></pre><p>&#x8FD9;&#x91CC;&#x4E0D;&#x7BA1; onFulfilled &#x548C; onRejected &#x4F20;&#x4EC0;&#x4E48;&#x503C;&#xFF0C;&#x53EA;&#x8981;&#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x5C31;&#x7EE7;&#x7EED;&#x5411;&#x4E0B;&#x4F20;&#x5165;&#xFF0C;&#x76F4;&#x5230;&#x6709;&#x51FD;&#x6570;&#x8FDB;&#x884C;&#x63A5;&#x6536;&#xFF1B;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x5BF9; then &#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x5982;&#x4E0B;&#x5B8C;&#x5584;&#xFF1A;</p>
+<pre><code>//_this&#x662F;promise1&#x7684;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;
+var _this = this
+onFulfilled = typeof onFulfilled === &apos;function&apos; ? onFulfilled : value =&gt; value
+onRejected = typeof onRejected === &apos;function&apos; ? onRejected : reason =&gt; { throw reason }
+
+var promise2 = new Promise((resolve, reject)=&gt;{
+    if(_this.state === FULFILLED){
+        let x = onFulfilled(_this.value)
+        resolvePromise(promise2, x, resolve, reject)
+    } else if(_this.state === REJECTED){
+        let x = onRejected(_this.reason)
+        resolvePromise(promise2, x ,resolve, reject)
+    } else if(_this.state === PENDING){
+        _this.onFulfilled.push(()=&gt;{
+            let x = onFulfilled(_this.value)
+            resolvePromise(promise2, x, resolve, reject)
+        })
+        _this.onRejected.push(()=&gt;{
+            let x = onRejected(_this.reason)
+            resolvePromise(promise2, x ,resolve, reject)
+        })
+    }
+})
+</code></pre><p>&#x6211;&#x4EEC;&#x53D1;&#x73B0;&#x51FD;&#x6570;&#x4E2D;&#x6709;&#x4E00;&#x4E2A; resolvePromise&#xFF0C;&#x5C31;&#x662F;&#x4E0A;&#x9762;&#x8BF4;&#x7684; Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;&#xFF0C;&#x5B83;&#x662F;&#x5BF9;&#x65B0;&#x7684; promise2 &#x548C;&#x4E0A;&#x4E00;&#x4E2A;&#x6267;&#x884C;&#x7ED3;&#x679C; x &#x7684;&#x5904;&#x7406;&#xFF0C;&#x7531;&#x4E8E;&#x5177;&#x6709;&#x590D;&#x7528;&#x6027;&#xFF0C;&#x6211;&#x4EEC;&#x628A;&#x5B83;&#x62BD;&#x6210;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x4E0A;&#x9762;&#x89C4;&#x8303;&#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#x7B2C;&#x4E00;&#x70B9;&#x3002;</p>
+<p>&#x7531;&#x4E8E; then &#x7684;&#x56DE;&#x8C03;&#x662F;&#x5F02;&#x6B65;&#x6267;&#x884C;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x628A; onFulfilled &#x548C; onRejected &#x6267;&#x884C;&#x653E;&#x5230;&#x5F02;&#x6B65;&#x4E2D;&#x53BB;&#x6267;&#x884C;&#xFF0C;&#x540C;&#x65F6;&#x505A;&#x4E00;&#x4E0B;&#x9519;&#x8BEF;&#x7684;&#x5904;&#x7406;&#xFF1A;</p>
+<pre><code>//&#x5176;&#x4ED6;&#x4EE3;&#x7801;&#x7565;
+if(_this.state === FULFILLED){
+    setTimeout(()=&gt;{
+        try {
+            let x = onFulfilled(_this.value)
+            resolvePromise(promise2, x, resolve, reject)
+        } catch (error) {
+            reject(error)
+        }
+    })
+} else if(_this.state === REJECTED){
+    setTimeout(()=&gt;{
+        try {                    
+            let x = onRejected(_this.reason)
+            resolvePromise(promise2, x ,resolve, reject)
+        } catch (error) {
+            reject(error)
+        }
+    })
+} else if(_this.state === PENDING){
+    _this.onFulfilled.push(()=&gt;{
+        setTimeout(()=&gt;{
+            try {                        
+                let x = onFulfilled(_this.value)
+                resolvePromise(promise2, x, resolve, reject)
+            } catch (error) {
+                reject(error)
+            }
+        })
+    })
+    _this.onRejected.push(()=&gt;{
+        setTimeout(()=&gt;{
+            try {                        
+                let x = onRejected(_this.reason)
+                resolvePromise(promise2, x ,resolve, reject)
+            } catch (error) {
+                reject(error)
+            }
+        })
+    })
+}
+</code></pre><h2 id="promise-&#x89E3;&#x51B3;&#x8FC7;&#x7A0B;">Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;</h2>
+<blockquote>
+<p>Promise &#x89E3;&#x51B3;&#x8FC7;&#x7A0B;&#x662F;&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x5176;&#x9700;&#x8F93;&#x5165;&#x4E00;&#x4E2A; promise &#x548C;&#x4E00;&#x4E2A;&#x503C;&#xFF0C;&#x6211;&#x4EEC;&#x8868;&#x793A;&#x4E3A; <code>[[Resolve]](promise, x)</code>&#xFF0C;&#x5982;&#x679C; x &#x6709; then &#x65B9;&#x6CD5;&#x4E14;&#x770B;&#x4E0A;&#x53BB;&#x50CF;&#x4E00;&#x4E2A; Promise &#xFF0C;&#x89E3;&#x51B3;&#x7A0B;&#x5E8F;&#x5373;&#x5C1D;&#x8BD5;&#x4F7F; promise &#x63A5;&#x53D7; x &#x7684;&#x72B6;&#x6001;&#xFF1B;&#x5426;&#x5219;&#x5176;&#x7528; x &#x7684;&#x503C;&#x6765;&#x6267;&#x884C; promise &#x3002;  </p>
+</blockquote>
+<p>&#x8FD9;&#x6BB5;&#x8BDD;&#x6BD4;&#x8F83;&#x62BD;&#x8C61;&#xFF0C;&#x901A;&#x4FD7;&#x4E00;&#x70B9;&#x7684;&#x6765;&#x8BF4;&#x5C31;&#x662F; promise &#x7684;&#x89E3;&#x51B3;&#x8FC7;&#x7A0B;&#x9700;&#x8981;&#x4F20;&#x5165;&#x4E00;&#x4E2A;&#x65B0;&#x7684; promise &#x548C;&#x4E00;&#x4E2A;&#x503C; x&#xFF0C;&#x5982;&#x679C;&#x4F20;&#x5165;&#x7684; x &#x662F;&#x4E00;&#x4E2A; thenable &#x7684;&#x5BF9;&#x8C61;&#xFF08;&#x5177;&#x6709; then &#x65B9;&#x6CD5;&#xFF09;&#xFF0C;&#x5C31;&#x63A5;&#x53D7; x &#x7684;&#x72B6;&#x6001;&#xFF1A;</p>
+<pre><code>//promise2&#xFF1A;&#x65B0;&#x7684;Promise&#x5BF9;&#x8C61;
+//x&#xFF1A;&#x4E0A;&#x4E00;&#x4E2A;then&#x7684;&#x8FD4;&#x56DE;&#x503C;
+//resolve&#xFF1A;promise2&#x7684;resolve
+//reject&#xFF1A;promise2&#x7684;reject
+function resolvePromise(promise2, x, resolve, reject) {
+}
+</code></pre><p>&#x5B9A;&#x4E49;&#x597D;&#x51FD;&#x6570;&#x540E;&#xFF0C;&#x6765;&#x770B;&#x5177;&#x4F53;&#x7684;&#x64CD;&#x4F5C;&#x8BF4;&#x660E;&#xFF1A;</p>
+<ol>
+<li><p>x &#x4E0E; promise &#x76F8;&#x7B49;</p>
+</li>
+<li><p>&#x5982;&#x679C; promise &#x548C; x &#x6307;&#x5411;&#x540C;&#x4E00;&#x5BF9;&#x8C61;&#xFF0C;&#x4EE5; TypeError &#x4E3A;&#x636E;&#x56E0;&#x62D2;&#x7EDD;&#x6267;&#x884C; promise</p>
+</li>
+<li><p>x &#x4E3A; Promise</p>
+</li>
+<li><p>&#x5982;&#x679C; x &#x5904;&#x4E8E;&#x7B49;&#x5F85;&#x6001;&#xFF0C; promise &#x9700;&#x4FDD;&#x6301;&#x4E3A;&#x7B49;&#x5F85;&#x6001;&#x76F4;&#x81F3; x &#x88AB;&#x6267;&#x884C;&#x6216;&#x62D2;&#x7EDD;</p>
+</li>
+<li>&#x5982;&#x679C; x &#x5904;&#x4E8E;&#x6267;&#x884C;&#x6001;&#xFF0C;&#x7528;&#x76F8;&#x540C;&#x7684;&#x503C;&#x6267;&#x884C; promise</li>
+<li><p>&#x5982;&#x679C; x &#x5904;&#x4E8E;&#x62D2;&#x7EDD;&#x6001;&#xFF0C;&#x7528;&#x76F8;&#x540C;&#x7684;&#x636E;&#x56E0;&#x62D2;&#x7EDD; promise</p>
+</li>
+<li><p>x &#x4E3A;&#x5BF9;&#x8C61;&#x6216;&#x51FD;&#x6570;</p>
+</li>
+<li><p>&#x628A; x.then &#x8D4B;&#x503C;&#x7ED9; then</p>
+</li>
+<li>&#x5982;&#x679C;&#x53D6; x.then &#x7684;&#x503C;&#x65F6;&#x629B;&#x51FA;&#x9519;&#x8BEF; e &#xFF0C;&#x5219;&#x4EE5; e &#x4E3A;&#x636E;&#x56E0;&#x62D2;&#x7EDD; promise</li>
+<li><p>&#x5982;&#x679C; then &#x662F;&#x51FD;&#x6570;&#xFF0C;&#x5C06; x &#x4F5C;&#x4E3A;&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x57DF; this &#x8C03;&#x7528;&#x4E4B;&#x3002;&#x4F20;&#x9012;&#x4E24;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x53EB;&#x505A; resolvePromise &#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x53EB;&#x505A; rejectPromise:</p>
+</li>
+<li><p>&#x5982;&#x679C; resolvePromise &#x4EE5;&#x503C; y &#x4E3A;&#x53C2;&#x6570;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x5219;&#x8FD0;&#x884C; <a href="https://zhuanlan.zhihu.com/p/144058361/promise,%20y" target="_blank">[Resolve]</a></p>
+</li>
+<li>&#x5982;&#x679C; rejectPromise &#x4EE5;&#x636E;&#x56E0; r &#x4E3A;&#x53C2;&#x6570;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x5219;&#x4EE5;&#x636E;&#x56E0; r &#x62D2;&#x7EDD; promise</li>
+<li>&#x5982;&#x679C; resolvePromise &#x548C; rejectPromise &#x5747;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x6216;&#x8005;&#x88AB;&#x540C;&#x4E00;&#x53C2;&#x6570;&#x8C03;&#x7528;&#x4E86;&#x591A;&#x6B21;&#xFF0C;&#x5219;&#x4F18;&#x5148;&#x91C7;&#x7528;&#x9996;&#x6B21;&#x8C03;&#x7528;&#x5E76;&#x5FFD;&#x7565;&#x5269;&#x4E0B;&#x7684;&#x8C03;&#x7528;</li>
+<li><p>&#x5982;&#x679C; then &#x4E0D;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x4EE5; x &#x4E3A;&#x53C2;&#x6570;&#x6267;&#x884C; promise</p>
+</li>
+<li><p>&#x5982;&#x679C; x &#x4E0D;&#x4E3A;&#x5BF9;&#x8C61;&#x6216;&#x8005;&#x51FD;&#x6570;&#xFF0C;&#x4EE5; x &#x4E3A;&#x53C2;&#x6570;&#x6267;&#x884C; promise</p>
+</li>
+</ol>
+<p>&#x9996;&#x5148;&#x7B2C;&#x4E00;&#x70B9;&#xFF0C;&#x5982;&#x679C; x &#x548C; promise &#x76F8;&#x7B49;&#xFF0C;&#x8FD9;&#x662F;&#x4E00;&#x79CD;&#x4EC0;&#x4E48;&#x60C5;&#x51B5;&#x5462;&#xFF0C;&#x5C31;&#x662F;&#x76F8;&#x5F53;&#x4E8E;&#x628A;&#x81EA;&#x5DF1;&#x8FD4;&#x56DE;&#x51FA;&#x53BB;&#x4E86;&#xFF1A;</p>
+<pre><code>var p = new Promise(function(resolve, reject){
+    resolve(3)
+});
+//Uncaught (in promise) TypeError: Chaining cycle detected for promise #&lt;Promise&gt;
+var p2 = p.then(function(){
+    return p2
+})
+</code></pre><p>&#x8FD9;&#x6837;&#x4F1A;&#x9677;&#x5165;&#x4E00;&#x4E2A;&#x6B7B;&#x5FAA;&#x73AF;&#x4E2D;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x9996;&#x5148;&#x8981;&#x628A;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x7ED9;&#x6392;&#x9664;&#x6389;&#xFF1A;</p>
+<pre><code>function resolvePromise(promise2, x, resolve, reject) {
+    if (promise2 === x) {
+        reject(new TypeError(&apos;Chaining cycle&apos;));
+    }
+}
+</code></pre><p>&#x63A5;&#x4E0B;&#x6765;&#x5C31;&#x662F;&#x5BF9;&#x4E0D;&#x540C;&#x60C5;&#x51B5;&#x7684;&#x5224;&#x65AD;&#x4E86;&#xFF0C;&#x9996;&#x5148;&#x6211;&#x4EEC;&#x628A; x &#x4E3A;&#x5BF9;&#x8C61;&#x6216;&#x8005;&#x51FD;&#x6570;&#x7684;&#x60C5;&#x51B5;&#x7ED9;&#x5224;&#x65AD;&#x51FA;&#x6765;&#xFF1A;</p>
+<pre><code>function resolvePromise(promise2, x, resolve, reject) {
+    if (promise2 === x) {
+        reject(new TypeError(&apos;Chaining cycle&apos;));
+    }
+    if (x !== null &amp;&amp; (typeof x === &apos;object&apos; || typeof x === &apos;function&apos;)) {
+        //&#x51FD;&#x6570;&#x6216;&#x5BF9;&#x8C61;
+    } else {
+        //&#x666E;&#x901A;&#x503C;
+        resolve(x)
+    }
+}
+</code></pre><p>&#x5982;&#x679C; x &#x4E3A;&#x5BF9;&#x8C61;&#x6216;&#x51FD;&#x6570;&#xFF0C;&#x5C31;&#x628A; x.then &#x8D4B;&#x503C;&#x7ED9; then &#x597D;&#x7406;&#x89E3;&#xFF0C;&#x4F46;&#x662F;&#x7B2C;&#x4E8C;&#x70B9;&#x53D6; then &#x6709;&#x53EF;&#x80FD;&#x4F1A;&#x62A5;&#x9519;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;&#x5462;&#xFF1F;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x9700;&#x8981;&#x8003;&#x8651;&#x5230;&#x6240;&#x6709;&#x51FA;&#x9519;&#x7684;&#x60C5;&#x51B5;&#xFF08;&#x9632;&#x5C0F;&#x4EBA;&#x4E0D;&#x9632;&#x541B;&#x5B50;&#xFF09;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4EBA;&#x5B9E;&#x73B0; Promise &#x5BF9;&#x8C61;&#x7684;&#x65F6;&#x5019;&#x4F7F;&#x7528; Object.defineProperty() &#x6076;&#x610F;&#x629B;&#x9519;&#xFF0C;&#x5BFC;&#x81F4;&#x7A0B;&#x5E8F;&#x5D29;&#x6E83;&#xFF0C;&#x5C31;&#x50CF;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code>var Promise = {};
+Object.defineProperty(Promise, &apos;then&apos;, {
+    get: function(){
+        throw Error(&apos;error&apos;)
+    }
+})
+//Uncaught Error: error
+Promise.then
+</code></pre><p>&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x53D6; then &#x7684;&#x65F6;&#x5019;&#x4E5F;&#x9700;&#x8981; try/catch&#xFF1A;</p>
+<pre><code>//&#x5176;&#x4ED6;&#x4EE3;&#x7801;&#x7565;
+if (x !== null &amp;&amp; (typeof x === &apos;object&apos; || typeof x === &apos;function&apos;)) {
+    //&#x51FD;&#x6570;&#x6216;&#x5BF9;&#x8C61;
+    try {
+        let then = x.then
+    } catch(e){
+        reject(e)
+    }
+}
+</code></pre><p>&#x53D6;&#x51FA; then &#x540E;&#xFF0C;&#x56DE;&#x5230; 3.3&#xFF0C;&#x5224;&#x65AD;&#x5982;&#x679C;&#x662F;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x5C31;&#x5C06; x &#x4F5C;&#x4E3A;&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x57DF; this &#x8C03;&#x7528;&#xFF0C;&#x540C;&#x65F6;&#x4F20;&#x5165;&#x4E24;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x3002;</p>
+<pre><code>//&#x5176;&#x4ED6;&#x4EE3;&#x7801;&#x7565;
+try {
+    let then = x.then
+    if(typeof then === &apos;function&apos;){
+        then.call(x, (y)=&gt;{
+            resolve(y)
+        }, (r) =&gt;{
+            reject(r)
+        })
+    } else {
+        resolve(x)
+    }
+} catch(e){
+    reject(e)
+}
+</code></pre><p>&#x8FD9;&#x6837;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x5C31;&#x80FD;&#x987A;&#x5229;&#x7684;&#x8C03;&#x7528;&#x8D77;&#x6765;&#x4E86;&#xFF1B;&#x4F46;&#x662F;&#x8FD8;&#x6709;&#x4E00;&#x79CD;&#x7279;&#x6B8A;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x5982;&#x679C; resolve &#x7684; y &#x503C;&#x8FD8;&#x662F;&#x4E00;&#x4E2A; Promise &#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x65F6;&#x5C31;&#x5E94;&#x8BE5;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#xFF0C;&#x6BD4;&#x5982;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code>var p1 = new Promise((resolve, reject)=&gt;{
+    resolve(&apos;p1&apos;)
+})
+p1.then((res)=&gt;{
+    return new Promise((resolve, reject)=&gt;{
+        resolve(new Promise((resolve, reject)=&gt;{
+            resolve(&apos;p2&apos;)
+        }))
+    })
+})
+.then((res1)=&gt;{
+    //Promise {state: &quot;fulfilled&quot;, value: &quot;p2&quot;}
+    console.log(res1)
+})
+</code></pre><p>&#x8FD9;&#x65F6;&#x5019;&#x7B2C;&#x4E8C;&#x4E2A; then &#x6253;&#x5370;&#x51FA;&#x6765;&#x7684;&#x662F;&#x4E00;&#x4E2A; promise &#x5BF9;&#x8C61;&#xFF1B;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x7EE7;&#x7EED;&#x9012;&#x5F52;&#x8C03;&#x7528; resolvePromise&#xFF08;&#x53C2;&#x8003;&#x89C4;&#x8303; 3.3.1&#xFF09;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x6700;&#x7EC8; resolvePromise &#x7684;&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code>function resolvePromise(promise2, x, resolve, reject){
+    if(promise2 === x){
+        reject(new TypeError(&apos;Chaining cycle&apos;))
+    }
+    if(x &amp;&amp; typeof x === &apos;object&apos; || typeof x === &apos;function&apos;){
+        let used;
+        try {
+            let then = x.then
+            if(typeof then === &apos;function&apos;){
+                then.call(x, (y)=&gt;{
+                    if (used) return;
+                    used = true
+                    resolvePromise(promise2, y, resolve, reject)
+                }, (r) =&gt;{
+                    if (used) return;
+                    used = true
+                    reject(r)
+                })
+            } else {
+                if (used) return;
+                used = true
+                resolve(x)
+            }
+        } catch(e){
+            if (used) return;
+            used = true
+            reject(e)
+        }
+    } else {
+        resolve(x)
+    }
+}
+</code></pre><p>&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x6211;&#x4EEC;&#x7684; Promise &#x4E5F;&#x80FD;&#x591F;&#x5B8C;&#x6574;&#x7684;&#x5B9E;&#x73B0;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x4E86;&#xFF1B;&#x7136;&#x540E;&#x628A;&#x4EE3;&#x7801;&#x7528; promises-aplus-tests &#x6D4B;&#x8BD5;&#x4E00;&#x4E0B;&#xFF0C;&#x5B8C;&#x7F8E;&#x7684;&#x901A;&#x8FC7;&#x4E86; 872 &#x9879;&#x6D4B;&#x8BD5;&#x3002;</p>
+<p><img src="https://pic4.zhimg.com/v2-94d5f6e7e33646d7e3d7edeadfc76a57_r.jpg" alt=""></p>
+<h2 id="&#x53C2;&#x8003;">&#x53C2;&#x8003;</h2>
+<p><a href="https://link.zhihu.com/?target=http%3A//wiki.commonjs.org/wiki/Promises/A" target="_blank">promise/A &#x89C4;&#x8303;&#xFF08;&#x82F1;&#x6587;&#xFF09;</a> <a href="https://link.zhihu.com/?target=https%3A//promisesaplus.com/" target="_blank">promise/A + &#x89C4;&#x8303;&#xFF08;&#x82F1;&#x6587;&#xFF09;</a> <a href="https://link.zhihu.com/?target=https%3A//www.ituring.com.cn/article/66566" target="_blank">promise/A + &#x89C4;&#x8303;&#xFF08;&#x4E2D;&#x6587;&#xFF09;</a></p>
+<p>&#x66F4;&#x591A;&#x524D;&#x7AEF;&#x8D44;&#x6599;&#x8BF7;&#x5173;&#x6CE8;&#x516C;&#x4F17;&#x53F7;&#x3010;&#x524D;&#x7AEF;&#x58F9;&#x8BFB;&#x3011;&#x3002;</p>
+<p><img src="https://pic3.zhimg.com/v2-236aae5ddbe50210de3251658caaa06a_r.jpg" alt=""></p>
+<p>&#x5982;&#x679C;&#x89C9;&#x5F97;&#x5199;&#x5F97;&#x8FD8;&#x4E0D;&#x9519;&#xFF0C;&#x8BF7;&#x5173;&#x6CE8;&#x6211;&#x7684;&#x4E13;&#x680F;&#xFF0C;&#x5B9A;&#x671F;&#x524D;&#x7AEF;&#x597D;&#x6587;&#x5206;&#x4EAB;</p>
+<p>&#x66F4;&#x591A;&#x6587;&#x7AE0;&#x8BF7;&#x8BBF;&#x95EE;&#x6211;&#x7684;&#x7F51;&#x7AD9; </p>
+<footer class="page-footer"><span class="copyright">Copyright  all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x8BE5;&#x6587;&#x4EF6;&#x4FEE;&#x8BA2;&#x65F6;&#x95F4;&#xFF1A;
+2021-11-23 17:51:39
+</span></footer>
+<script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="100行代码实现 Promises_A+ 规范.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 100实现promise_A+">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"从零开始手写Promise","level":"1.9.1.2","depth":3,"next":{"title":"移动端","level":"1.9.2","depth":2,"ref":"","articles":[{"title":"postcss-px-vw","level":"1.9.2.1","depth":3,"path":"前端杂项/移动端/postcss-px-to-vw.md","ref":"前端杂项/移动端/postcss-px-to-vw.md","articles":[]}]},"previous":{"title":"100实现promise_A+","level":"1.9.1.1","depth":3,"path":"前端杂项/Promise/100行代码实现 Promises_A+ 规范.md","ref":"前端杂项/Promise/100行代码实现 Promises_A+ 规范.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","back-to-top-button","chapter-fold","expandable-chapters","search-pro","github","splitter","tbfed-pagefooter","pageview-count","popup","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright ","modify_label":"该文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"github":{"url":"https://github.com/ytnosmoking"},"livereload":{},"splitter":{},"search-pro":{},"popup":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"pageview-count":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"ytnosmoking","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Study","language":"zh-hans","links":{"sidebar":{"Gitee":"https://gitee.com/go_show"}},"gitbook":"*","description":"个人学习markdowns","theme-default":{"showLevel":true}},"file":{"path":"前端杂项/Promise/从零开始手写Promise.md","mtime":"2021-11-23T09:51:39.725Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-11-23T07:35:09.270Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-pageview-count/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
