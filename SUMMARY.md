@@ -19,6 +19,7 @@
     * [n](Node/nodejs n 管理模块.md)
     * [koa](Node/PM2 常用命令.md)
     * [redis](Node/Redis 配置 _ 菜鸟教程.md)
+    * [nvm](Node/nvm node版本管理.md)
 * 其他
     * [wifi](其他/Wi-Fi 破解.md)
 * 前端杂项
@@ -40,8 +41,6 @@
     * [方法封装](前端杂项/方法封装.md)
     * [浏览器并发处理个数](前端杂项/浏览器并发处理个数.md)
     * [骨架屏项目实践](前端杂项/骨架屏项目实践.md)
-    * [项目开发软技能](前端杂项/项目开发软技能.md)
-    
 * 前端框架
     * Vue
       * [Vue3手册](前端框架/Vue/Vue3 学习手册.md)
@@ -56,14 +55,12 @@
       * [生命周期与Hooks](前端框架/React/生命周期 与 Hooks.md)
     * TypeScript
       * [tsconfig](前端框架/TypeScript/TypeScript tsconfig.json 配置详解.md)
-
 * 面试
   * [CSS](前端面试/CSS.md)
   * [Javascript](前端面试/Javascript.md)
   * [核心](前端面试/前端核心.md)
   * [进阶](前端面试/前端进阶.md)
   * [基础](前端面试/基础知识.md)
-
 * Linux
   * [命令](Linux/命令.md)
 * 树
@@ -71,7 +68,5 @@
   * [平衡树](树/平衡树.md)
 * 文档
   * [链接](相关开发文档/相关库 开发文档链接.md)
-  
 * 规范
   * [规范](规范/前端使用 Commitizen 规范 git commit 全中文汉化.md)
-  
