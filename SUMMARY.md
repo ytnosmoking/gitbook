@@ -46,6 +46,7 @@
       * [Vue3手册](前端框架/Vue/Vue3 学习手册.md)
       * [vue优化](前端框架/Vue/Vue 项目 优化 开发 生产.md)
       * [vite](前端框架/Vue/vite.config.ts 基础配置分享.md)
+      * [自定义指令](前端框架/Vue/directives.md)
     * React 
       * [react_config-overridess](前端框架/React/React 不使用 eject 的配置方法（config-overrides 复现 vue 项目全部配置config-overrides.md)
       * [react-状态管理](前端框架/React/React 状态 管理工具.md)
