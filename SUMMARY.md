@@ -31,6 +31,7 @@
       * [从零开始手写Promise](前端杂项/Promise/从零开始手写Promise.md)
     * 移动端
         * [postcss-px-vw](前端杂项/移动端/postcss-px-to-vw.md)
+    * [MVC,MVP,MVVM](前端杂项/MVC.md)
     * [Error](前端杂项/Error.md)
     * [JSON拷贝](前端杂项/JSON.parse实现深拷贝的弊端.md)
     * [JS手写题](前端杂项/JS手写题.md)
