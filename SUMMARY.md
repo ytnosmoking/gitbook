@@ -60,6 +60,7 @@
       * [生命周期与Hooks](前端框架/React/生命周期 与 Hooks.md)
     * TypeScript
       * [tsconfig](前端框架/TypeScript/TypeScript tsconfig.json 配置详解.md)
+      * [高级类型](前端框架/TypeScript/types.md)
 * 面试
   * [CSS](前端面试/CSS.md)
   * [Javascript](前端面试/Javascript.md)
