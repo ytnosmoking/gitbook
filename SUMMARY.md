@@ -9,6 +9,7 @@
 * Git
     * [stash](Git/stash.md)
     * [命令](Git/命令.md)
+    * [pull&push](Git/pull&push.md)
 * Gulp
     * [示例](Gulp/demo.md)
 * Javascript
