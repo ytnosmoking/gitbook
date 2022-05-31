@@ -8,7 +8,6 @@
 
 2. 嗅探 airport en0 sniff channel 监听你要获取wifi 频道 需要sudo
 
-   ​![image-20201127160924791](file:///Users/gongyutian/Library/Application%20Support/typora-user-images/image-20201127160924791.png?lastModify=1606464753)
 
 ### Aircrack-ng
 
