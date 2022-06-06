@@ -17,3 +17,5 @@
 + [相关插件]()
   - [插件1](https://segmentfault.com/a/1190000019806829)
   - [插件2](http://gitbook.zhangjikai.com/plugins.html)
++ [简单教程](http://www.javashuo.com/article/p-uaesljpc-eh.html)
++ [教程2](http://www.chengweiyang.cn/gitbook/gitbook.com/edit.html)
