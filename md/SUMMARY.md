@@ -1,6 +1,7 @@
 # Summary
 
-* [GitBook配置](README.md)
+* [tips](README.md)
+* [GitBook配置](GITBOOK.md)
 * Docker
   * [基础篇](Docker/基础篇.md)
   * [基本](Docker/基本.md)

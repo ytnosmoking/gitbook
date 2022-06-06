@@ -5,7 +5,8 @@
   "scripts": {
     "start": "gitbook serve ./ ./books",
     "book": "gitbook init",
-    "down": "gitbook install"
+    "down": "gitbook install",
+    "deploy": "sh deploy.sh"
   },
   "engines": {
     "node": "10.23.0"
