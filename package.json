@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "gitbook serve ./ ./docs",
+    "start": "gitbook serve ./ ./books",
     "book": "gitbook init",
     "down": "gitbook install"
   },

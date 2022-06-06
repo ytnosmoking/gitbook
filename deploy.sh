@@ -14,4 +14,5 @@ git add -A
 git commit -m 'deploy'
 
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
-git push -f https://github.com/ytnosmoking/gitbook.git master:gh-pages
+git branch -M main
+git push -f https://github.com/ytnosmoking/gitbook.git main:gh-pages
