@@ -21,7 +21,7 @@
   * [koa](Node/Koa.js，离不开这十个中间件.md)
   * [日志](Node/koa添加日志管理模块.md)
   * [n](Node/nodejs n 管理模块.md)
-  * [koa](Node/PM2 常用命令.md)
+  * [PM2](Node/PM2 常用命令.md)
   * [redis](Node/Redis 配置 _ 菜鸟教程.md)
   * [nvm](Node/nvm node版本管理.md)
   * [npm_registry](Node/npm registry源管理.md)
