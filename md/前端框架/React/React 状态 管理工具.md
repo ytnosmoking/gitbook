@@ -182,7 +182,7 @@ class ManageScore extends HomeState {
       <div ref='need' className='secondDiv animated slideInRight'>
         <ContentTitle
           title={(state && state.title) || ""}
-          txt={<div style={{ fontSize: 20 }}>{state.h3}</div>}
+          txt={<div style={ fontSize: 20 }>{state.h3}</div>}
           btn={
             <div>
               <Button type='primary'>批量导入</Button>
@@ -193,11 +193,11 @@ class ManageScore extends HomeState {
           }
         />
         <Table
-          style={{
+          style={
             marginTop: 20,
             backgroundColor: "#fff",
             maxHeight: scroll.y + "px"
-          }}
+          }
           loading={loading}
           scroll={scroll}
           dataSource={lists}
