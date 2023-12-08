@@ -25,6 +25,8 @@
   * [redis](Node/Redis 配置 _ 菜鸟教程.md)
   * [nvm](Node/nvm node版本管理.md)
   * [npm_registry](Node/npm registry源管理.md)
+* 服务部署
+  * [nginx](服务部署/nginx.md)
 * 其他
   * [wifi](其他/Wi-Fi 破解.md)
 * 项目问题
